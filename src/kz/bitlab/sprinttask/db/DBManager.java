@@ -38,29 +38,6 @@ public class DBManager{
         }
         return items;
     }
-    public static String isOk(String email, String password) {
-        String full_name = null;
-        try{
-            PreparedStatement statement = connection.prepareStatement("SELECT email, password, full_name FROM users");
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                String email1 = resultSet.getString("email");
-                String password1 = resultSet.getString("password");
-                if(email.equals(email1)) {
-                    if(password.equals(password1)) {
-                        full_name = resultSet.getString("full_name");
-                    } else {
-                        full_name = null;
-                    }
-                } else {
-                    full_name = null;
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return full_name;
-    }
     public static String isOk2(String email,  String password) {
         String full_name = null;
         try {
@@ -77,5 +54,72 @@ public class DBManager{
             e.printStackTrace();
         }
         return full_name;
+    }
+    public static boolean addItem(Items item) {
+        int rows = 0;
+            try {
+                PreparedStatement statement = connection.prepareStatement("" +
+                        "INSERT INTO items(id,name,description,price)" +
+                        "VALUES (NULL,?,?,?)");
+                statement.setString(1, item.getName());
+                statement.setString(2, item.getDescription());
+                statement.setDouble(3, item.getPrice());
+                rows = statement.executeUpdate();
+                statement.close();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        return rows > 0;
+    }
+    public static Items getItemByID(Long id) {
+        Items items = null;
+        try{
+            PreparedStatement statement = connection.prepareStatement("SELECT id, name, description,price FROM items WHERE id = ?");
+            statement.setLong(1,id);
+            ResultSet resultSet =statement.executeQuery();
+            if(resultSet.next()) {
+             items = new Items(
+              resultSet.getLong("id"),
+              resultSet.getString("name"),
+              resultSet.getString("description"),
+              resultSet.getDouble("price"));
+            }
+            statement.close();
+            resultSet.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return items;
+    }
+    public static boolean editItem(Items item) {
+        int rows = 0;
+        try{
+            PreparedStatement statement = connection.prepareStatement("UPDATE items SET name = ?, description = ?, price = ? WHERE id = ?");
+            statement.setString(1,item.getName());
+            statement.setString(2, item.getDescription());
+            statement.setDouble(3,item.getPrice());
+            statement.setLong(4,item.getId());
+            rows = statement.executeUpdate();
+            statement.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rows > 0;
+    }
+    public static boolean deleteItem(Long id) {
+        int rows = 0;
+        try {
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM items WHERE id = ?");
+            statement.setLong(1,id);
+            rows = statement.executeUpdate();
+            statement.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rows > 0;
     }
 }
