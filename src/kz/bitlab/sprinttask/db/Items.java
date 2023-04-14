@@ -5,13 +5,30 @@ public class Items {
     private String name;
     private String description;
     private double price;
+    private Brands brands;
 
-    public Items(Long id, String name, String description, double price) {
+    public Brands getBrands() {
+        return brands;
+    }
+
+    public void setBrands(Brands brands) {
+        this.brands = brands;
+    }
+
+    public Items(Long id, String name, String description, double price, Brands brands) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
+        this.brands = brands;
     }
+
+//    public Items(Long id, String name, String description, double price) {
+//        this.id = id;
+//        this.name = name;
+//        this.description = description;
+//        this.price = price;
+//    }
 
     public Items() {
     }

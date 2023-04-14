@@ -4,6 +4,21 @@
         <input type="text" class="form-control"  aria-describedby="emailHelp" name = "item_name" placeholder="Insert name">
     </div>
     <div class="form-group">
+        <label>BRAND:</label>
+        <select name="item_brand" class="form-control">
+            <%
+                ArrayList<Brands> brands = DBManager.getAllBrands();
+                if(brands!=null) {
+                    for (Brands brand : brands) {
+            %>
+            <option value="<%=brand.getId()%>"><%=brand.getName() + " - " + brand.getCountry()%></option>
+            <%
+                    }
+                }
+            %>
+        </select>
+    </div>
+    <div class="form-group">
         <label>PRICE:</label>
         <input type="number" class="form-control" name ="item_price" placeholder="Insert price">
     </div>

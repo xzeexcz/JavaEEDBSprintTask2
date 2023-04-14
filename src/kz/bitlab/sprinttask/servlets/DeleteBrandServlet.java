@@ -1,6 +1,5 @@
 package kz.bitlab.sprinttask.servlets;
 
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -10,12 +9,17 @@ import kz.bitlab.sprinttask.db.DBManager;
 
 import java.io.IOException;
 
-@WebServlet(value = "/deleteItem")
-public class DeleteItemServlet extends HttpServlet {
+@WebServlet(value = "/deleteBrand")
+public class DeleteBrandServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Long id = Long.parseLong(req.getParameter("item_id"));
-        if(DBManager.deleteItem(id)) {
+        Long id = -1L;
+        try{
+            id = Long.parseLong(req.getParameter("brand_id"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if(DBManager.deleteBrand(id)) {
             resp.sendRedirect("/home");
         } else {
             req.getRequestDispatcher("/404.jsp").forward(req,resp);

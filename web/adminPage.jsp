@@ -1,5 +1,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="kz.bitlab.sprinttask.db.Items" %>
+<%@ page import="kz.bitlab.sprinttask.db.Brands" %>
+<%@ page import="kz.bitlab.sprinttask.db.DBManager" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -40,6 +42,7 @@
       <tr>
         <th scope="col">ID</th>
         <th scope="col">NAME</th>
+        <th scope="col">BRAND</th>
         <th scope="col">PRICE($)</th>
         <th scope="col">DESCRIPTION</th>
         <th scope="col">DETAILS</th>
@@ -54,6 +57,7 @@
       <tr>
         <th><%=it.getId()%></th>
         <td><%=it.getName()%></td>
+        <td><%=it.getBrands().getName() + " - " + it.getBrands().getCountry()%></td>
         <td><%=it.getPrice()%></td>
         <td><%=it.getDescription()%></td>
         <td><a href="/details?id=<%=

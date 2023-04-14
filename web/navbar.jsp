@@ -16,6 +16,9 @@
             <a class="nav-link" href="/adminPage">Admin Panel</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="/adminPageBrands">Admin Panel - Brands</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="#">By Category</a>
         </li>
         <li class="nav-item">

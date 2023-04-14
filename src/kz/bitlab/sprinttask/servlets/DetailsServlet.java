@@ -15,7 +15,12 @@ import java.io.IOException;
 public class DetailsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Long id = Long.parseLong(req.getParameter("id"));
+        Long id = -1L;
+        try{
+            id = Long.parseLong(req.getParameter("id"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         Items item = DBManager.getItemByID(id);
         if(item!=null) {
             req.setAttribute("pluwka", item);
